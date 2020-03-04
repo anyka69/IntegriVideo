@@ -56,6 +56,23 @@ public class IntegriVideoChatPage extends BasePage {
         Alert alert = driver.switchTo().alert();
         driver.switchTo().alert().accept();
     }
+    public void setting(){
+        driver.findElement(By.cssSelector(".integri-chat-settings")).click();
+    }
+    public void enterName(String text){
+        driver.findElement(By.name("userName")).clear();
+        driver.findElement(By.name("userName")).sendKeys(text);
+    }
+    public void enterEmail(String text){
+        driver.findElement(By.name("userEmail")).sendKeys(text);
+    }
+    public void photoURL(String text){
+        driver.findElement(By.name("userPic")).sendKeys(text);
+        driver.findElement(By.cssSelector(".integri-user-settings-save")).click();
+    }
+
+
+
 }
 
 
