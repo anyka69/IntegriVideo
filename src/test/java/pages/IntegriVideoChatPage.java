@@ -70,9 +70,22 @@ public class IntegriVideoChatPage extends BasePage {
         driver.findElement(By.name("userPic")).sendKeys(text);
         driver.findElement(By.cssSelector(".integri-user-settings-save")).click();
     }
+    public void clickInvite(){
+        driver.findElement(By.cssSelector("#invite-users-to-chat")).click();
+    }
 
-
-
+    public void getURL() {
+        String currentUrl = driver.getCurrentUrl();
+        String getUrl = null;
+        try {
+            getUrl = (String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
+        } catch (UnsupportedFlavorException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        assertEquals(currentUrl, getUrl, "Link incorrect");
+    }
 }
 
 
