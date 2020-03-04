@@ -44,33 +44,41 @@ public class IntegriVideoChatPage extends BasePage {
         boolean isExist = messages.get(messageIndex - 1).getText().equals(text);
         assertTrue(isExist, "Message does not exist");
     }
-    public void editMessage(){
+
+    public void editMessage() {
         driver.findElement(By.cssSelector(".integri-chat-edit-message")).click();
     }
-    public void writeTextMessage(String text){
+
+    public void writeTextMessage(String text) {
         driver.findElement(By.cssSelector("textarea")).clear();
         driver.findElement(By.cssSelector("textarea")).sendKeys(text);
     }
-    public void deleteMessage(){
+
+    public void deleteMessage() {
         driver.findElement(By.cssSelector(".integri-chat-remove-message")).click();
         Alert alert = driver.switchTo().alert();
         driver.switchTo().alert().accept();
     }
-    public void setting(){
+
+    public void setting() {
         driver.findElement(By.cssSelector(".integri-chat-settings")).click();
     }
-    public void enterName(String text){
+
+    public void enterName(String text) {
         driver.findElement(By.name("userName")).clear();
         driver.findElement(By.name("userName")).sendKeys(text);
     }
-    public void enterEmail(String text){
+
+    public void enterEmail(String text) {
         driver.findElement(By.name("userEmail")).sendKeys(text);
     }
-    public void photoURL(String text){
+
+    public void photoURL(String text) {
         driver.findElement(By.name("userPic")).sendKeys(text);
         driver.findElement(By.cssSelector(".integri-user-settings-save")).click();
     }
-    public void clickInvite(){
+
+    public void clickInvite() {
         driver.findElement(By.cssSelector("#invite-users-to-chat")).click();
     }
 
@@ -85,6 +93,17 @@ public class IntegriVideoChatPage extends BasePage {
             e.printStackTrace();
         }
         assertEquals(currentUrl, getUrl, "Link incorrect");
+    }
+
+    public void clickDragAndDrop(){
+        driver.findElement(By.cssSelector(".integri-chat-manual-upload")).click();
+        driver.findElement(By.cssSelector(".integri-file-upload-manual-init")).click();
+    }
+    public void clickBrowse() {
+       WebElement browse= driver.findElement(By.cssSelector(".integri-file-upload-manual-init"));
+       browse.click();
+       browse.sendKeys("C:\\Users\\Юра\\Desktop\\блабла.txt");
+       driver.findElement(By.cssSelector(".integri-file-upload-start integri-float-right"));
     }
 }
 
