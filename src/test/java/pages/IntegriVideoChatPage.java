@@ -137,6 +137,14 @@ public class IntegriVideoChatPage extends BasePage {
         }
         assertEquals(currentUrl, getUrl, "Link incorrect");
     }
+    public void clickDragAndDrop(){
+        driver.findElement(By.cssSelector(".integri-chat-manual-upload")).click();
+    }
+    public void clickBrowse(String url) {
+        WebElement browse= driver.findElement(By.cssSelector(".integri-hide"));
+        browse.sendKeys(url);
+        driver.findElement(By.cssSelector(".integri-file-upload-start"));
+    }
 
 }
 
