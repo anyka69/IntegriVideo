@@ -95,6 +95,49 @@ public class IntegriVideoChatPage extends BasePage {
             driver.findElement(By.cssSelector(".integri-chat-send-message")).click();
         }
     }
+    public void setting() {
+        driver.findElement(By.cssSelector(".integri-chat-settings")).click();
+    }
+
+    public void checkName() {
+        driver.findElement(By.name("userName")).clear();
+        driver.findElement(By.name("userName")).sendKeys("Anna");
+        String name = driver.findElement(By.name("userName")).getAttribute("value");
+        assertEquals(name,"Anna","Name Error!");
+    }
+    public void checkEmail() {
+        driver.findElement(By.name("userEmail")).clear();
+        driver.findElement(By.name("userEmail")).sendKeys("123@mail.ru");
+        String email =driver.findElement(By.name("userEmail")).getAttribute("value");
+        assertEquals(email,"123@mail.ru","Email Error!");
+    }
+    public void checkPhotoURL(){
+        driver.findElement(By.name("userPic")).clear();
+        driver.findElement(By.name("userPic")).sendKeys("https://www.google.com/search");
+        String photoURL=driver.findElement(By.name("userPic")).getAttribute("value");
+        assertEquals(photoURL,"https://www.google.com/search","PhotoURL Error!");
+    }
+    public void settingSave(){
+        driver.findElement(By.cssSelector(".integri-user-settings-save")).click();
+    }
+    public void clickInvite() {
+        driver.findElement(By.cssSelector("#invite-users-to-chat")).click();
+
+    }
+
+    public void getURL() {
+        String currentUrl = driver.getCurrentUrl();
+        String getUrl = null;
+        try {
+            getUrl = (String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
+        } catch (UnsupportedFlavorException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        assertEquals(currentUrl, getUrl, "Link incorrect");
+    }
+
 }
 
 
