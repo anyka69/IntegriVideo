@@ -5,18 +5,20 @@ import org.testng.annotations.Test;
 public class SettingsModal extends BaseTest {
     @Test
     public void checkSetting(){
-        chatPage.openPage();
-        chatPage.setting();
-        chatPage.checkName();
-        chatPage.checkEmail();
-        chatPage.checkPhotoURL();
-        chatPage.settingSave();
+        chatPage
+                .openPage()
+                .setting()
+                .checkName()
+                .checkEmail()
+                .checkPhotoURL()
+                .saveSetting();
     }
     @Test
     public void buttonInvite() {
-        chatPage.openPage();
-        chatPage.clickInvite();
-        chatPage.getURL();
+        chatPage
+                .openPage()
+                .clickInvite()
+                .clipboardShouldContainCurrentURL();
     }
 
 }

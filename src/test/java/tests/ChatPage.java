@@ -6,19 +6,20 @@ public class ChatPage extends BaseTest {
     @Test
     public void sendMessage() {
         String text = "Autotest";
-        chatPage.openPage();
-        chatPage.writeText(text);
-        chatPage.clickSend();
-        chatPage.messageShouldExist(1, text);
+        chatPage
+                .openPage()
+                .writeText(text)
+                .clickSend()
+                .messageShouldExist(1, text);
     }
-
     @Test
     public void sendMessageByEnter() {
         String text = "Autotest";
-        chatPage.openPage();
-        chatPage.writeText(text);
-        chatPage.clickEnter();
-        chatPage.messageShouldExist(1, text);
+        chatPage
+                .openPage()
+                .writeText(text)
+                .clickEnter()
+                .messageShouldExist(1, text);
     }
     @Test
     public void sendLongMessage(){
@@ -56,49 +57,57 @@ public class ChatPage extends BaseTest {
                 "Sed vulputate, lacus nec egestas lacinia, enim neque fringilla ipsum, nec molestie nulla nisi malesuada libero. Ut nulla arcu, dapibus imperdiet vehicula quis, malesuada sit amet ipsum. Ut maximus odio a velit dignissim, a auctor turpis ullamcorper. Praesent metus neque, maximus vel pulvinar tincidunt, consectetur quis leo. In ipsum sem, rutrum sit amet sem ut, efficitur condimentum lorem. Nullam malesuada tortor id eros cursus, a tempus nisi feugiat. Etiam eleifend mauris sed tellus ullamcorper ornare. Vestibulum lacinia imperdiet lacus eget fermentum. Duis iaculis urna turpis, vel ornare elit tincidunt at. Morbi hendrerit gravida diam id suscipit." +
                 "Sed vulputate, lacus nec egestas lacinia, enim neque fringilla ipsum, nec molestie nulla nisi malesuada libero. Ut nulla arcu, dapibus imperdiet vehicula quis, malesuada sit amet ipsum. Ut maximus odio a velit dignissim, a auctor turpis ullamcorper. Praesent metus neque, maximus vel pulvinar tincidunt, consectetur quis leo. In ipsum sem, rutrum sit amet sem ut, efficitur condimentum lorem. Nullam malesuada tortor id eros cursus, a tempus nisi feugiat. Etiam eleifend mauris sed tellus ullamcorper ornare. Vestibulum lacinia imperdiet lacus eget fermentum. Duis iaculis urna turpis, vel ornare elit tincidunt at. Morbi hendrerit gravida diam id suscipit." +
                 "";
-        chatPage.openPage();
-        chatPage.writeText(longMessage);
-        chatPage.clickSend();
-        chatPage.messageShouldExist(1,longMessage);
+        chatPage
+                .openPage()
+                .writeText(longMessage)
+                .clickSend()
+                .messageShouldExist(1, longMessage);
     }
     @Test
     public void sendEnterLink() {
-        String link="https://www.google.com/";
-        chatPage.openPage();
-        chatPage.writeText(link);
-        chatPage.clickEnter();
-        chatPage.linkText(1,link);
+        String link = "https://www.google.com/";
+        chatPage
+                .openPage()
+                .writeText(link)
+                .clickEnter()
+                .linkText(1, link);
     }
+
     @Test
     public void messageContainingHTML() {
-        String html="<html><body><p>test</p></body></html>";
-        chatPage.openPage();
-        chatPage.writeText(html);
-        chatPage.clickEnter();
-        chatPage.messageShouldExist(1, html);
-    }
-    @Test
-    public void editMessage(){
-        chatPage.openPage();
-        chatPage.writeText("Hello");
-        chatPage.clickSend();
-        chatPage.editMessage();
-        chatPage.modifyTextMessage("Bye");
-        chatPage.modifyText(1,"Bye");
-    }
-    @Test
-    public void deleteMessage(){
-        chatPage.openPage();
-        chatPage.writeText("Hello");
-        chatPage.clickSend();
-        chatPage.deleteMessage();
-        chatPage.deleteMessageText(1,"removed...");
-    }
-    @Test
-    public void send11Messages(){
-        chatPage.openPage();
-        chatPage.checkLimit();
+        String html = "<html><body><p>test</p></body></html>";
+        chatPage
+                .openPage()
+                .writeText(html)
+                .clickEnter()
+                .messageShouldExist(1, html);
     }
 
+    @Test
+    public void editMessage() {
+        chatPage
+                .openPage()
+                .writeText("Hello")
+                .clickSend()
+                .editMessage()
+                .modifyTextMessage("Bye")
+                .modifyText(1, "Bye");
+    }
 
+    @Test
+    public void deleteMessage() {
+        chatPage.openPage()
+                .writeText("Hello")
+                .clickSend()
+                .deleteMessage()
+                .deleteMessageText(1, "removed...");
+    }
+
+    @Test
+    public void send11Messages() {
+        String text = "Autotest";
+        chatPage
+                .openPage()
+                .checkLimit(text);
+    }
 }
