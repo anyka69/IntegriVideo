@@ -13,6 +13,7 @@ public class SettingsModal extends BaseTest {
                 .checkPhotoURL()
                 .saveSetting();
     }
+
     @Test
     public void buttonInvite() {
         chatPage
@@ -21,4 +22,8 @@ public class SettingsModal extends BaseTest {
                 .clipboardShouldContainCurrentURL();
     }
 
+    @Test
+    public void runTest() {
+        System.out.println(System.getProperty("testProp"));
+    }
 }

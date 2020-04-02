@@ -9,7 +9,5 @@ public class ChatTests extends BaseTest {
        chatPage.writeText("test");
        chatPage.clickSend();
        chatPage.messageShouldExist(1,"test");
-
     }
-
 }

@@ -1,7 +1,6 @@
 package pages;
 
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.awt.*;
@@ -14,27 +13,9 @@ import static org.testng.Assert.*;
 
 public class IntegriVideoChatPage extends BasePage {
     private final static By CHAT_INPUT = By.cssSelector("textarea");
-    private final static By CHAT_SEND_MESSAGE = By.cssSelector(".integri-chat-send-message");
-    private final static By CHAT_SEND_MESSAGE_TEXT = By.cssSelector(".integri-chat-message-text");
-    private final static By CHAT_MESSAGE_ATTACHMENT_LINK = By.cssSelector(".integri-chat-message-attachment-link");
-    private final static By CHAT_EDIT_MESSAGE = By.cssSelector(".integri-chat-edit-message");
-    private final static By CHAT_MESSAGE_TEXT = By.cssSelector(".integri-chat-message-text");
-    private final static By CHAT_SETTINGS = By.cssSelector(".integri-chat-settings");
-    private final static By UserName = By.name("userName");
-    private final static By UserEmail = By.name("userEmail");
-    private final static By UserPic = By.name("userPic");
-    private final static By User_Setting_Save = By.cssSelector(".integri-user-settings-save");
-    private final static By Chat_Manual_Upload = By.cssSelector(".integri-chat-manual-upload");
-    private final static By Hide = By.cssSelector(".integri-hide");
-    private final static By File_Upload_Start = By.cssSelector(".integri-file-upload-start");
-    private final static By CHAT_REMOVE_MESSAGE = By.cssSelector(".integri-chat-remove-message");
-    private final static By Big_Button = By.cssSelector(".integri-button big-button");
-    private final static By UsersToChat = By.cssSelector("#invite-users-to-chat");
-    private final static By FileItemName = By.cssSelector(".integri-file-item-name");
 
     public IntegriVideoChatPage(WebDriver driver) {
         super(driver);
-        PageFactory.initElements(driver, this);
     }
 
     @Override
@@ -44,7 +25,6 @@ public class IntegriVideoChatPage extends BasePage {
 
     public IntegriVideoChatPage openPage() {
         driver.get("https://dev.integrivideo.com/demo/chat/new");
-        isPageOpened();
         return this;
     }
 
@@ -53,147 +33,136 @@ public class IntegriVideoChatPage extends BasePage {
         return this;
     }
 
-    public IntegriVideoChatPage clickSend() {
-        driver.findElement(CHAT_SEND_MESSAGE).click();
-        return this;
+    public void clickSend() {
+        driver.findElement(By.cssSelector(".integri-chat-send-message")).click();
     }
 
-    public IntegriVideoChatPage clickEnter() {
-        WebElement enter = driver.findElement(CHAT_SEND_MESSAGE);
+    public void clickEnter() {
+        WebElement enter = driver.findElement(By.cssSelector(".integri-chat-send-message"));
         enter.sendKeys(Keys.ENTER);
-        return this;
     }
 
-    public IntegriVideoChatPage messageShouldExist(int messageIndex, String text) {
-        List<WebElement> messages = driver.findElements(CHAT_SEND_MESSAGE_TEXT);
+    public void messageShouldExist(int messageIndex, String text) {
+        List<WebElement> messages = driver.findElements(By.cssSelector(".integri-chat-message-text"));
         boolean isExist = messages.get(messageIndex - 1).getText().equals(text);
         assertTrue(isExist, "Message does not exist");
-        return this;
     }
 
-    public IntegriVideoChatPage linkText(int messageIndex, String text) {
-        List<WebElement> link = driver.findElements(CHAT_MESSAGE_ATTACHMENT_LINK);
+    public void linkText(int messageIndex, String text) {
+        List<WebElement> link = driver.findElements(By.cssSelector(".integri-chat-message-attachment-link"));
         boolean isExist = link.get(messageIndex - 1).getText().equals(text);
         assertFalse(isExist, "page does not load");
-        return this;
+
     }
 
-    public IntegriVideoChatPage editMessage() {
-        driver.findElement(CHAT_EDIT_MESSAGE).click();
-        return this;
+    public void editMessage() {
+        driver.findElement(By.cssSelector(".integri-chat-edit-message")).click();
     }
 
-    public IntegriVideoChatPage modifyTextMessage(String text) {
-        driver.findElement(CHAT_INPUT).clear();
-        driver.findElement(CHAT_INPUT).sendKeys(text);
-        return this;
+    public void modifyTextMessage(String text) {
+        driver.findElement(By.cssSelector("textarea")).clear();
+        driver.findElement(By.cssSelector("textarea")).sendKeys(text);
     }
 
-    public IntegriVideoChatPage modifyText(int messageIndex, String text) {
+    public void modifyText(int messageIndex, String text) {
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        List<WebElement> messages = driver.findElements(CHAT_MESSAGE_TEXT);
+        List<WebElement> messages = driver.findElements(By.cssSelector(".integri-chat-message-text"));
         boolean isExist = messages.get(messageIndex - 1).getText().equals(text);
         assertFalse(isExist, "Message does not exist");
-        return this;
     }
 
-    public IntegriVideoChatPage deleteMessage() {
-        driver.findElement(CHAT_REMOVE_MESSAGE).click();
+
+    public void deleteMessage() {
+        driver.findElement(By.cssSelector(".integri-chat-remove-message")).click();
         Alert alert = driver.switchTo().alert();
         driver.switchTo().alert().accept();
-        return this;
     }
 
-    public IntegriVideoChatPage deleteMessageText(int messageIndex, String text) {
-        List<WebElement> messages = driver.findElements(CHAT_MESSAGE_TEXT);
+    public void deleteMessageText(int messageIndex, String text) {
+        List<WebElement> messages = driver.findElements(By.cssSelector(".integri-chat-message-text"));
         boolean isExist = messages.get(messageIndex - 1).getText().equals(text);
         assertFalse(isExist, "removed...");
-        return this;
     }
 
-    public IntegriVideoChatPage checkLimit(String text) {
+    public void checkLimit() {
         for (int i = 0; i < 12; i++) {
-            writeText(text);
-            driver.findElement(CHAT_SEND_MESSAGE).click();
-            wait.until(ExpectedConditions.numberOfElementsToBe((CHAT_MESSAGE_TEXT), i + 1));
+            driver.findElement(CHAT_INPUT).sendKeys("text");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            driver.findElement(By.cssSelector(".integri-chat-send-message")).click();
         }
-        driver.findElement(Big_Button);
-        return this;
     }
 
-    public IntegriVideoChatPage setting() {
-        driver.findElement(CHAT_SETTINGS).click();
-        return this;
+    public void sendMessage1() {
+        for (int i = 0; i < 12; i++) {
+            driver.findElement(CHAT_INPUT).sendKeys("text");
+            wait.until(ExpectedConditions.numberOfElementsToBe(By.cssSelector(".integri-chat-send-message"), 12));
+            driver.findElement(By.cssSelector(".integri-chat-send-message")).click();
+        }
     }
 
-    public IntegriVideoChatPage checkName() {
-        driver.findElement(UserName).clear();
-        driver.findElement(UserName).sendKeys("Anna");
-        String name = driver.findElement(UserName).getAttribute("value");
-        assertEquals(name, "Anna", "Error!Repeat Entry!Check Name!");
-        return this;
+    public void setting() {
+        driver.findElement(By.cssSelector(".integri-chat-settings")).click();
     }
 
-    public IntegriVideoChatPage checkEmail() {
-        driver.findElement(UserEmail).clear();
-        driver.findElement(UserEmail).sendKeys("123@mail.ru");
-        String email = driver.findElement(UserEmail).getAttribute("value");
-        assertEquals(email, "123@mail.ru", "Error!Repeat Entry!Check Email!");
-        return this;
+    public void checkName() {
+        driver.findElement(By.name("userName")).clear();
+        driver.findElement(By.name("userName")).sendKeys("Anna");
+        String name = driver.findElement(By.name("userName")).getAttribute("value");
+        assertEquals(name, "Anna", "Name Error!");
     }
 
-    public IntegriVideoChatPage checkPhotoURL() {
-        driver.findElement(UserPic).clear();
-        driver.findElement(UserPic).sendKeys("https://www.google.com/search");
-        String photoURL = driver.findElement(UserPic).getAttribute("value");
-        assertEquals(photoURL, "https://www.google.com/search", "Error!Repeat Entry!");
-        return this;
+    public void checkEmail() {
+        driver.findElement(By.name("userEmail")).clear();
+        driver.findElement(By.name("userEmail")).sendKeys("123@mail.ru");
+        String email = driver.findElement(By.name("userEmail")).getAttribute("value");
+        assertEquals(email, "123@mail.ru", "Email Error!");
     }
 
-    public IntegriVideoChatPage saveSetting() {
-        driver.findElement(User_Setting_Save).click();
-        return this;
+    public void checkPhotoURL() {
+        driver.findElement(By.name("userPic")).clear();
+        driver.findElement(By.name("userPic")).sendKeys("https://www.google.com/search");
+        String photoURL = driver.findElement(By.name("userPic")).getAttribute("value");
+        assertEquals(photoURL, "https://www.google.com/search", "PhotoURL Error!");
     }
 
-    public IntegriVideoChatPage clickInvite() {
-        driver.findElement(UsersToChat).click();
-        return this;
+    public void settingSave() {
+        driver.findElement(By.cssSelector(".integri-user-settings-save")).click();
     }
 
-    public IntegriVideoChatPage clipboardShouldContainCurrentURL() {
+    public void clickInvite() {
+        driver.findElement(By.cssSelector("#invite-users-to-chat")).click();
+
+    }
+
+    public void getURL() {
         String currentUrl = driver.getCurrentUrl();
-        String clipboardShouldContainCurrentURL = null;
+        String getUrl = null;
         try {
-            clipboardShouldContainCurrentURL = (String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
+            getUrl = (String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
         } catch (UnsupportedFlavorException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        assertEquals(currentUrl, clipboardShouldContainCurrentURL, "Link incorrect");
-        return this;
+        assertEquals(currentUrl, getUrl, "Link incorrect");
     }
 
-    public IntegriVideoChatPage clickDragAndDrop() {
-        driver.findElement(Chat_Manual_Upload).click();
-        return this;
+    public void clickDragAndDrop() {
+        driver.findElement(By.cssSelector(".integri-chat-manual-upload")).click();
     }
 
-    public IntegriVideoChatPage clickBrowse(String url) {
-        WebElement browse = driver.findElement(Hide);
-        browse.sendKeys(System.getProperty("user.dir") + url);
-        driver.findElement(File_Upload_Start).click();
-        return this;
-    }
-
-    public IntegriVideoChatPage verifyFile(String validName) {
-        String fileName = driver.findElement(FileItemName).getText();
-        assertEquals(fileName, validName, "File upload error!");
-        return this;
+    public void clickBrowse(String url) {
+        WebElement browse = driver.findElement(By.cssSelector(".integri-hide"));
+        browse.sendKeys(url);
+        driver.findElement(By.cssSelector(".integri-file-upload-start"));
     }
 }
 
