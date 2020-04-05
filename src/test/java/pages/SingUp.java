@@ -3,6 +3,7 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 import java.util.UUID;
@@ -62,7 +63,6 @@ public class SingUp extends BasePage {
 
     public SingUp writeTextProjectName(String name) {
         driver.findElement(By.name("name")).sendKeys(name);
-
         return this;
     }
 
@@ -83,5 +83,41 @@ public class SingUp extends BasePage {
         return this;
     }
 
+    public SingUp clickBilling() {
+        driver.findElement(By.xpath("//*[contains(text(),'Billing')]")).click();
+        return this;
+    }
 
+    public SingUp clickAddNew() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(text(),'Add new')]")));
+        driver.findElement(By.xpath("//a[contains(text(),'Add new')]")).click();
+        return this;
+    }
+
+    public SingUp writeInformationCreditCard(String number, String mm, String yyyy, String name) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".paypal-button")));
+        driver.findElement(By.name("number")).sendKeys(number);
+        driver.findElement(By.name("expirationMonth")).sendKeys(mm);
+        driver.findElement(By.name("expirationYear")).sendKeys(yyyy);
+        driver.findElement(By.name("cardholderName")).sendKeys(name);
+        return this;
+    }
+
+    public SingUp clickAddCard() {
+        driver.findElement(By.xpath("//button[contains(text(),'Add')]")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[contains(text(),'Add')]")));
+        return this;
+    }
+
+    public SingUp makeDefault(int number) {
+        List<WebElement> makeDefault = driver.findElements(By.xpath("//*[contains(text(),'Make default')]"));
+        makeDefault.get(number).click();
+        return this;
+    }
+
+    public SingUp removeCard(int number) {
+        List<WebElement> deleteElement = driver.findElements(By.xpath("//*[contains(text(),'Remove')]"));
+        deleteElement.get(number).click();
+        return this;
+    }
 }
