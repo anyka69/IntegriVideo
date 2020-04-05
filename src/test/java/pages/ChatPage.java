@@ -3,10 +3,13 @@ package pages;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.awt.*;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.io.IOException;
 import java.util.List;
 
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.*;
 
 public class ChatPage extends BasePage {
     private final static By CHAT_INPUT = By.cssSelector("textarea");
@@ -122,4 +125,58 @@ public class ChatPage extends BasePage {
         driver.findElement(CHAT_SETTINGS).click();
         return this;
     }
+
+    public ChatPage checkName() {
+        driver.findElement(UserName).clear();
+        driver.findElement(UserName).sendKeys("Anna");
+        String name = driver.findElement(UserName).getAttribute("value");
+        assertEquals(name, "Anna", "Error!Repeat Entry!Check Name!");
+        wait.until(ExpectedConditions.visibilityOfElementLocated(UserName));
+        return this;
+    }
+
+    public ChatPage checkEmail() {
+        driver.findElement(UserEmail).clear();
+        driver.findElement(UserEmail).sendKeys("123@mail.ru");
+        String email = driver.findElement(UserEmail).getAttribute("value");
+        assertEquals(email, "123@mail.ru", "Error!Repeat Entry!Check Email!");
+        wait.until(ExpectedConditions.visibilityOfElementLocated(UserEmail));
+        return this;
+    }
+
+    public ChatPage checkPhotoURL() {
+        driver.findElement(UserPic).clear();
+        driver.findElement(UserPic).sendKeys("https://www.google.com/search");
+        String photoURL = driver.findElement(UserPic).getAttribute("value");
+        assertEquals(photoURL, "https://www.google.com/search", "Error!Repeat Entry!");
+        wait.until(ExpectedConditions.visibilityOfElementLocated(UserPic));
+        return this;
+    }
+
+    public ChatPage saveSetting() {
+        driver.findElement(User_Setting_Save).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(User_Setting_Save));
+        return this;
+    }
+
+    public ChatPage clickInvite() {
+        driver.findElement(UsersToChat).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(UsersToChat));
+        return this;
+    }
+
+    public ChatPage clipboardShouldContainCurrentURL() {
+        String currentUrl = driver.getCurrentUrl();
+        String clipboardShouldContainCurrentURL = null;
+        try {
+            clipboardShouldContainCurrentURL = (String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
+        } catch (UnsupportedFlavorException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        assertEquals(currentUrl, clipboardShouldContainCurrentURL, "Link incorrect");
+        return this;
+    }
 }
+

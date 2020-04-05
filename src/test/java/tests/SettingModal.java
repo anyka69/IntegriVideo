@@ -7,18 +7,18 @@ public class SettingModal extends BaseTest {
     public void checkSetting() {
         chatPage
                 .openPage()
-                .clickSetting();
-//                .checkName()
-//                .checkEmail()
-//                .checkPhotoURL()
-//                .saveSetting();
+                .clickSetting()
+                .checkName()
+                .checkEmail()
+                .checkPhotoURL()
+                .saveSetting();
     }
 
-//    @Test
-//    public void buttonInvite() {
-//        chatPage
-//                .openPage();
-////                .clickInvite()
-////                .clipboardShouldContainCurrentURL();
-//    }
+    @Test
+    public void buttonInvite() {
+        chatPage
+                .openPage()
+                .clickInvite()
+                .clipboardShouldContainCurrentURL();
+    }
 }
