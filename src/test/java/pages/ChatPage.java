@@ -29,7 +29,7 @@ public class ChatPage extends BasePage {
     private final static By CHAT_REMOVE_MESSAGE = By.cssSelector(".integri-chat-remove-message");
     private final static By Big_Button = By.cssSelector(".integri-button big-button");
     private final static By UsersToChat = By.cssSelector("#invite-users-to-chat");
-    private final static By FileItemName = By.cssSelector(".integri-file-item-name");
+    private final static By FileName = By.cssSelector(".integri-chat-message-attachment-file-name");
     String url = "https://dev.integrivideo.com/demo/chat/new";
 
     public ChatPage(WebDriver driver) {
@@ -176,6 +176,25 @@ public class ChatPage extends BasePage {
             e.printStackTrace();
         }
         assertEquals(currentUrl, clipboardShouldContainCurrentURL, "Link incorrect");
+        return this;
+    }
+
+    public ChatPage clickDragAndDrop() {
+        driver.findElement(Chat_Manual_Upload).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(Chat_Manual_Upload));
+        return this;
+    }
+
+    public ChatPage clickBrowse(String url) {
+        WebElement browse = driver.findElement(Hide);
+        browse.sendKeys(System.getProperty("user.dir") + url);
+        driver.findElement(File_Upload_Start).click();
+        return this;
+    }
+
+    public ChatPage verifyFile(String validName) {
+        String fileName = driver.findElement(FileName).getText();
+        assertEquals(fileName, validName, "File upload error!");
         return this;
     }
 }
