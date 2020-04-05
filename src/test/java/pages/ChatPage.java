@@ -44,6 +44,11 @@ public class ChatPage extends BasePage {
     }
 
     @Override
+    public SingUp openPage(String text) {
+        return null;
+    }
+
+    @Override
     public ChatPage isPageOpened() {
         return this;
     }
@@ -112,12 +117,12 @@ public class ChatPage extends BasePage {
     }
 
     public ChatPage checkLimit(String text) {
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < 10; i++) {
             writeText(text);
             driver.findElement(CHAT_SEND_MESSAGE).click();
             wait.until(ExpectedConditions.numberOfElementsToBe((CHAT_MESSAGE_TEXT), i + 1));
         }
-        driver.findElement(Big_Button).click();
+//        driver.findElement(Big_Button).click();
         return this;
     }
 
