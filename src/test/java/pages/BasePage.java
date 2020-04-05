@@ -15,6 +15,8 @@ public abstract class BasePage {
 
     public abstract BasePage openPage();
 
+    public abstract SingUp openPage(String text);
+
     public abstract BasePage isPageOpened();
 }
 

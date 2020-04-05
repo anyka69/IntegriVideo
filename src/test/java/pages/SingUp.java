@@ -120,4 +120,9 @@ public class SingUp extends BasePage {
         deleteElement.get(number).click();
         return this;
     }
+
+    public SingUp clickLogout() {
+        driver.findElement(By.xpath("//*[contains(text(),'Logout')]")).click();
+        return this;
+    }
 }
