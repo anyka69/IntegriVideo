@@ -18,7 +18,7 @@ public class ChatText extends BaseTest {
         String text = "Autotest";
         chatPage
                 .openPage()
-//                .writeText(text)
+                .writeText(text)
                 .clickEnter()
                 .messageShouldExist(1, text);
     }

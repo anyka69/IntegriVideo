@@ -38,11 +38,12 @@ public class SingUp extends BasePage {
         driver.findElement(Email).sendKeys(UUID.randomUUID().toString() + "@mailinator.com");
         return this;
     }
-
     public SingUp logout(String email, String password) {
         driver.findElement(Email).sendKeys(email);
         driver.findElement(Password).sendKeys(password);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(BUTTON));
         driver.findElement(BUTTON).click();
+//        AllureUtils.takeScreenshot(driver);
         return this;
     }
 
