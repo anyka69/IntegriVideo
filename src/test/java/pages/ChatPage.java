@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
@@ -37,6 +38,7 @@ public class ChatPage extends BasePage {
     }
 
     @Override
+    @Step("Открытие страницы чата")
     public ChatPage openPage() {
         driver.get(url);
         isPageOpened();

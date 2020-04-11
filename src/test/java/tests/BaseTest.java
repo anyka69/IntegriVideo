@@ -6,6 +6,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import pages.ChatPage;
 import pages.SingUp;
+import steps.LoginSteps;
 
 import java.util.concurrent.TimeUnit;
 
@@ -13,6 +14,7 @@ public class BaseTest {
     private WebDriver driver;
     ChatPage chatPage;
     SingUp singUp;
+    LoginSteps loginSteps;
 
 
     @BeforeMethod
@@ -23,6 +25,7 @@ public class BaseTest {
         driver.manage().window().maximize();
         chatPage = new ChatPage(driver);
         singUp = new SingUp(driver);
+        loginSteps = new LoginSteps(driver);
 
     }
 

@@ -1,9 +1,11 @@
 package tests;
 
+import io.qameta.allure.Description;
 import org.testng.annotations.Test;
 
 public class SingUp extends BaseTest {
     @Test
+    @Description("Создание проекта user")
     public void createRandomAccount() {
         singUp
                 .openPage("https://dev.integrivideo.com/signup")
@@ -13,10 +15,10 @@ public class SingUp extends BaseTest {
     }
 
     @Test
+    @Description("Создание проекта user")
     public void addProject() {
+        loginSteps.login();
         singUp
-                .openPage("https://dev.integrivideo.com/login")
-                .logout("piter@mailinator.com", "qwerty123")
                 .addProject()
                 .writeTextProjectName("Test")
                 .writeTextDomains(0, "tut.by")
