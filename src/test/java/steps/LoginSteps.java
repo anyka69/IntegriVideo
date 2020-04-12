@@ -1,6 +1,7 @@
 package steps;
 
 import io.qameta.allure.Step;
+import models.User;
 import org.openqa.selenium.WebDriver;
 import pages.SingUp;
 
@@ -13,9 +14,11 @@ public class LoginSteps {
     }
 
     @Step("Registration ")
-    public void login() {
+    public LoginSteps login() {
+        User user = new User("piter@mailinator.com", "qwerty123");
         singUp
                 .openPage("https://dev.integrivideo.com/login")
-                .logout("piter@mailinator.com", "qwerty123");
+                .login(user);
+        return this;
     }
 }

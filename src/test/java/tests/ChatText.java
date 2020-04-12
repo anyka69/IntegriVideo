@@ -23,7 +23,7 @@ public class ChatText extends BaseTest {
                 .messageShouldExist(1, text);
     }
 
-    @Test
+    @Test(enabled = false)
     public void sendLongMessage() {
         String longMessage = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque luctus nulla nec turpis consectetur, id tincidunt nibh molestie. Nam dapibus ornare nulla ut tempus. Aliquam luctus nunc risus. Quisque gravida mattis nibh non maximus. Quisque ac ultricies metus, vitae fringilla leo. Phasellus augue nunc, ultricies eget velit in, eleifend scelerisque nisi. Cras pellentesque nisl ut volutpat placerat. Aliquam convallis ultricies nulla, vel semper augue bibendum nec. Vivamus viverra felis volutpat eros faucibus sagittis. Sed id magna congue, tempus turpis sed, volutpat quam." +
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque luctus nulla nec turpis consectetur, id tincidunt nibh molestie. Nam dapibus ornare nulla ut tempus. Aliquam luctus nunc risus. Quisque gravida mattis nibh non maximus. Quisque ac ultricies metus, vitae fringilla leo. Phasellus augue nunc, ultricies eget velit in, eleifend scelerisque nisi. Cras pellentesque nisl ut volutpat placerat. Aliquam convallis ultricies nulla, vel semper augue bibendum nec. Vivamus viverra felis volutpat eros faucibus sagittis. Sed id magna congue, tempus turpis sed, volutpat quam." +
@@ -76,7 +76,7 @@ public class ChatText extends BaseTest {
                 .linkText(1, link);
     }
 
-    @Test
+    @Test(enabled = false)
     public void messageContainingHTML() {
         String html = "<html><body><p>test</p></body></html>";
         chatPage
@@ -94,7 +94,7 @@ public class ChatText extends BaseTest {
                 .clickSend()
                 .editMessage()
                 .modifyTextMessage("Bye")
-                .modifyText(1, "Bye");
+                .verifyText(1, "Bye");
     }
 
     @Test
@@ -102,7 +102,7 @@ public class ChatText extends BaseTest {
         chatPage.openPage()
                 .writeText("Hello")
                 .clickSend()
-                .deleteMessage()
+                .deleteMessage(1)
                 .deleteMessageText(1, "removed...");
     }
 
@@ -111,6 +111,6 @@ public class ChatText extends BaseTest {
         String text = "Autotest";
         chatPage
                 .openPage()
-                .checkLimit(text);
+                .checkLimit(text, 12);
     }
 }
