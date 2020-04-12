@@ -1,7 +1,10 @@
 package pages;
 
 import io.qameta.allure.Step;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.awt.*;
@@ -97,16 +100,16 @@ public class ChatPage extends BasePage {
         return this;
     }
 
-    public ChatPage modifyText(int messageIndex, String text) {
+    public ChatPage verifyText(int messageIndex, String text) {
         List<WebElement> messages = driver.findElements(CHAT_MESSAGE_TEXT);
         boolean isExist = messages.get(messageIndex - 1).getText().equals(text);
         assertFalse(isExist, "Message does not exist");
         return this;
     }
 
-    public ChatPage deleteMessage() {
-        driver.findElement(CHAT_REMOVE_MESSAGE).click();
-        Alert alert = driver.switchTo().alert();
+    public ChatPage deleteMessage(int index) {
+        List<WebElement> deleteButtons = driver.findElements(CHAT_REMOVE_MESSAGE);
+        deleteButtons.get(index - 1).click();
         driver.switchTo().alert().accept();
         return this;
     }
@@ -118,13 +121,13 @@ public class ChatPage extends BasePage {
         return this;
     }
 
-    public ChatPage checkLimit(String text) {
-        for (int i = 0; i < 10; i++) {
+    public ChatPage checkLimit(String text, int limit) {
+        for (int i = 0; i < limit - 1; i++) {
             writeText(text);
             driver.findElement(CHAT_SEND_MESSAGE).click();
             wait.until(ExpectedConditions.numberOfElementsToBe((CHAT_MESSAGE_TEXT), i + 1));
         }
-//        driver.findElement(Big_Button).click();
+        driver.findElement(Big_Button).click();
         return this;
     }
 
