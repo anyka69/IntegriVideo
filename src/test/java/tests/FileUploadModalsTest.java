@@ -8,7 +8,7 @@ public class FileUploadModalsTest extends BaseTest {
         chatPage
                 .openPage()
                 .clickDragAndDrop()
-                .clickBrowse("\\src\\main\\resources\\блабла.txt")
+                .clickBrowse("\\src\\test\\resources\\webdrivers\\блабла.txt")
                 .verifyFile("блабла.txt (0kb)");
     }
 }
